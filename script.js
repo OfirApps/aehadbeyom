@@ -28,3 +28,7 @@ function checkFullscreen() {
     openFullscreen()
   }
 }
+
+
+// Change height attribute
+document.getElementById("styler").innerHTML = document.getElementById("styler").innerHTML.replace('...', document.getElementById("koteret").getAttribute("koteret") + " ");

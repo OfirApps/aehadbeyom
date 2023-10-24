@@ -44,3 +44,8 @@ p {
   -ms-user-select: none;      
   user-select: none;
 }
+
+h1::after {
+  content: ' ז"ל';
+  font-size: 75%;
+}
