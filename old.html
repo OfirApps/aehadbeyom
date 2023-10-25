@@ -19,29 +19,67 @@
       content: '...';
       font-size: 75%;
     }
+    .info {
+      flex-wrap: nowrap !important;
+      justify-content: normal !important;
+      overflow: auto;
+    }
+    .info div {
+      display: flex;
+      justify-content: center !important;
+      align-content: space-around;
+      flex-wrap: nowrap !important;
+      flex-direction: column;
+      align-items: center;
+      direction: rtl;
+      min-height: 100vh;
+    }
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #000;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #d7dcef;
+    }
   </style>
 </head>
 
 <body>
   <div style="position: fixed;" onclick="checkFullscreen()" class="noselect">מסך מלא</div>
   <div style="position: fixed;right: 50%;bottom: -1px;height: fit-content;    color: #2f0300;" class="noselect">אופיר ט2 יהלום</div>
-  <div style="position: fixed;left: 0;height: fit-content;" class="noselect" onclick="window.location.href='/'">הסיפור של היום</div>
+  <div style="position: fixed;left: 5px;height: fit-content;" class="noselect" onclick="window.location.href='/'">הסיפור של היום</div>
   <div class="ner noselect">
     <img src="nerneshama.gif">
   </div>
   <div class="info">
-    <img src="https://www.idf.il/media/i4ydwgjy/%D7%99%D7%94%D7%95%D7%A0%D7%AA%D7%9F-%D7%A9%D7%98%D7%99%D7%99%D7%A0%D7%91%D7%A8%D7%92.jpeg?center=0.39440582671483548,0.52365584834929435&mode=crop&width=250&height=250" style="max-height: 30vh;" class="noselect">
-        <h1 id="koteret" koteret="אלם">יהונתן שטיינברג</h1>
-        <p>שטינברג התגורר בשומריה, היה נשוי ואב לשישה. בעל תואר ראשון בחינוך ממכללת ירושלים ותואר שני במדעי המדינה. גיסו הוא אל"ם אפרים אבני.
-    </p>
-        <p>
-          יהונתן נפל בקרב כרם שלום ב7 באוקטובר כאשר הסתער על מחבלים לבדו מחוץ לקיבוץ עד שנפל.
-        </p> 
-        <p>
-          הוא היה מפקד רגיש שאהב את החיילים שלו ודאג להם כמו הורה נוסף.
-        </p>
-        <p style="font-weight: lighter; font-size:1.5rem;">נזכור ולא נשכח</p>
-      </div>
+    <div>
+      <img src="https://static.wixstatic.com/media/0d1d6d_3dc052276eb4483f85e23d73da03401d~mv2.jpg/v1/fill/w_439,h_439,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%A9%D7%9C%20WhatsApp%E2%80%8F%202023-10-13%20%D7%91%D7%A9%D7%A2%D7%94%2016_43_13_e5efc212.jpg" style="max-height: 30vh;" class="noselect">
+          <h1 id="koteret" koteret="סמל">שחף ניסני</h1>
+          <p>שחף, בת 20 מאשקלון  שירתה כתצפיתנית בבסיס נחל עוז, בגדוד 414, והייתה אמורה להשתחרר לפני שבועיים. היא בדיוק סגרה את השבת האחרונה בבסיס. 
+            היא נרצחה במתפקת החמאס בעת שמילאה את תפקידה
+          </p>
+          <p>
+      גיסתה אסתי ספדה לה וכתבה :"הייתה לנו תקווה שתבואי, שתכנסי בדלת ונצחק על הכל. הלב שלנו מרוסק, תודה על כל רגע ושניה לצידך. מבטיחה לך להיות שם ולחזק את המשפחה שלנו. את תמיד תהיי חלק מהלב שלי. אני אוהבת אותך"
+          </p>
+          <p style="font-weight: lighter; font-size:1.5rem;">נזכור ולא נשכח</p>
+    </div>
+    <div>
+      <img src="https://www.idf.il/media/i4ydwgjy/%D7%99%D7%94%D7%95%D7%A0%D7%AA%D7%9F-%D7%A9%D7%98%D7%99%D7%99%D7%A0%D7%91%D7%A8%D7%92.jpeg?center=0.39440582671483548,0.52365584834929435&mode=crop&width=250&height=250" style="max-height: 30vh;" class="noselect">
+          <h1 id="koteret" koteret="אלם">יהונתן שטיינברג</h1>
+          <p>שטינברג התגורר בשומריה, היה נשוי ואב לשישה. בעל תואר ראשון בחינוך ממכללת ירושלים ותואר שני במדעי המדינה. גיסו הוא אל"ם אפרים אבני.
+      </p>
+          <p>
+            יהונתן נפל בקרב כרם שלום ב7 באוקטובר כאשר הסתער על מחבלים לבדו מחוץ לקיבוץ עד שנפל.
+          </p> 
+          <p>
+            הוא היה מפקד רגיש שאהב את החיילים שלו ודאג להם כמו הורה נוסף.
+          </p>
+          <p style="font-weight: lighter; font-size:1.5rem;">נזכור ולא נשכח</p>
+    </div>
   </div>
   <script src="script.js"></script>
 
