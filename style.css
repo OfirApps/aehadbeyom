@@ -49,3 +49,15 @@ h1::after {
   content: ' ז"ל';
   font-size: 75%;
 }
+
+@media (max-width: 767px) {
+  .ner {
+    display:none;
+  } 
+  .info {
+    width:100vw;
+  }
+  p {
+    text-align: center;
+  }
+}
