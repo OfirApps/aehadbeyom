@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+<head lang="he">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>אחד ביום - הנצחה לחללי צהל</title>
@@ -20,32 +20,57 @@
       font-size: 75%;
     }
   </style>
+  <link rel="preload" href="https://ab.dev.kolha.top/alt" as="script" />
+  <script src="https://ab.dev.kolha.top/alt"></script>
 </head>
 
 <body>
   <div style="position: fixed; right:0;" onclick="checkFullscreen()" class="noselect">מסך מלא</div>
   <div style="position: fixed;right: 50%;bottom: -1px;height: fit-content;    color: #460905;" class="noselect">רוני שוחט ט2</div>
   <div style="position: fixed;left: 0;height: fit-content;" class="noselect" onclick="window.location.href='/old.html'">הסיפורים הקודמים</div>
+  
+    
+  </script>
   <div class="ner noselect">
     <img src="nerneshama.gif">
   </div>
   <div class="info">
-    <img src="https://www.idf.il/media/r0yjlnbw/%D7%90%D7%A1%D7%A3-%D7%A4%D7%A0%D7%97%D7%A1-%D7%98%D7%95%D7%91%D7%95%D7%9C.jpeg?center=0.30956732575160689,0.47243107769423559&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="רסל">
-     אסף פנחס טובול
+    <img src="/favicon/android-chrome-512x512.png" style="max-height: 30vh;" class="noselect" id="hayalimg" alt="תמונת החייל">
+    <h1 id="koteret" koteret="" id="hayalname">
+      <span id="title" class="title">טוען</span>
+      <span id="hayalname">שם החייל</span>
     </h1>
-    <p>
-      רס"ל אסף פנחס טובול, מקריית מוצקין, לוחם בגדוד 77, עוצבת ׳סער מגולן׳ (7), נפל בקרב בדרום רצועת עזה. בן 22 בנופלו.
+    <p id="hayalgeneral">
+       טוען מידע...
     </p>
-    <p>
-
-בת דודה שלו שיתפה: "אסף היה אדם שכל כולו נתינה, תמיד עם חיוך וצחוק על הפנים, מלא בענווה, אכפתיות ושמחת חיים.  אני עדיין לא מעכלת ולא מבינה שהוא איננו."
+    <p id="hayalpersonal">
+      אם זה לוקח יותר מידי זמן, כנראה שישנה בעייה באתר והיא כרגע בתיקון💔
     </p>
     
   
     <p style="font-weight: lighter; font-size:1.5rem;">נזכור ולא נשכח</p>
   </div>
   <script src="script.js"></script>
-
+  <script>
+    //if a value names hayal exsits then
+    if (typeof hayal !== 'undefined') {
+      document.getElementById("hayalname").innerHTML = hayal.name;
+      document.getElementById("title").innerHTML = hayal.koteret;
+      document.getElementById("hayalimg").src = hayal.image;
+      document.getElementById("hayalgeneral").innerHTML = hayal.genInfo;
+      document.getElementById("hayalpersonal").innerHTML = hayal.perInfo;
+    } else {
+      fetch(`https://ab.dev.kolha.top/get?json=true`).then(res => res.json()).then(res => {
+        console.log(res)
+        if (res != null && res != "") {
+          document.getElementById("hayalname").innerHTML = res.name;
+          document.getElementById("title").innerHTML = res.koteret;
+          document.getElementById("hayalimg").src = res.image;
+          document.getElementById("hayalgeneral").innerHTML = res.genInfo;
+document.getElementById("hayalpersonal").innerHTML = res.perInfo;
+        }
+        });
+    }
+  </script>
 </body>
 </html>

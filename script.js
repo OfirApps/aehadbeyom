@@ -4,9 +4,11 @@ var elem = document.documentElement;
 function openFullscreen() {
   if (elem.requestFullscreen) {
     elem.requestFullscreen();
-  } else if (elem.webkitRequestFullscreen) { /* Safari */
+  } else if (elem.webkitRequestFullscreen) {
+    /* Safari */
     elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) { /* IE11 */
+  } else if (elem.msRequestFullscreen) {
+    /* IE11 */
     elem.msRequestFullscreen();
   }
 }
@@ -15,20 +17,30 @@ function openFullscreen() {
 function closeFullscreen() {
   if (document.exitFullscreen) {
     document.exitFullscreen();
-  } else if (document.webkitExitFullscreen) { /* Safari */
+  } else if (document.webkitExitFullscreen) {
+    /* Safari */
     document.webkitExitFullscreen();
-  } else if (document.msExitFullscreen) { /* IE11 */
+  } else if (document.msExitFullscreen) {
+    /* IE11 */
     document.msExitFullscreen();
   }
 }
 function checkFullscreen() {
-  if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
-   closeFullscreen()
+  if (
+    document.fullscreenElement ||
+    document.webkitFullscreenElement ||
+    document.msFullscreenElement
+  ) {
+    closeFullscreen();
   } else {
-    openFullscreen()
+    openFullscreen();
   }
 }
 
-
 // Change height attribute
-document.getElementById("styler").innerHTML = document.getElementById("styler").innerHTML.replace('...', document.getElementById("koteret").getAttribute("koteret") + " ");
+document.getElementById("styler").innerHTML = document
+  .getElementById("styler")
+  .innerHTML.replace(
+    "...",
+    document.getElementById("koteret").getAttribute("koteret") + " "
+  );
