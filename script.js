@@ -37,10 +37,17 @@ function checkFullscreen() {
   }
 }
 
-// Change height attribute
-document.getElementById("styler").innerHTML = document
-  .getElementById("styler")
-  .innerHTML.replace(
-    "...",
-    document.getElementById("koteret").getAttribute("koteret") + " "
-  );
+// // Change height attribute
+// document.getElementById("styler").innerHTML = document
+//   .getElementById("styler")
+//   .innerHTML.replace(
+//     "...",
+//     document.getElementById("koteret").getAttribute("koteret") + " "
+//   );
+
+koteretslist = document.getElementsByClassName("koteret")
+
+for (let i = 0; i < koteretslist.length; i++) {
+  koteret = koteretslist[i].getAttribute("koteret")
+    koteretslist[i].innerHTML = `<span class="title">${koteret}</span>` + koteretslist[i].innerHTML
+}

@@ -14,10 +14,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
   <link rel="manifest" href="/favicon/site.webmanifest">
   <style id="styler">
-    h1::before {
+    /* h1::before {
       content: '...';
       font-size: 75%;
-    }
+    } */
 
     .info {
       flex-wrap: nowrap !important;
@@ -48,11 +48,18 @@
     ::-webkit-scrollbar-thumb {
       background-color: #d7dcef;
     }
+
+    .pt {
+      margin-left: 0.5rem;
+    }
   </style>
+  <link rel="preload" href="https://ab.dev.kolha.top/history" as="script" />
+  <script src="https://ab.dev.kolha.top/history"></script>
 </head>
 
-<body>
+<body onload="loadhistory()">
   <div style="position: fixed;" onclick="checkFullscreen()" class="noselect">מסך מלא</div>
+  <input id="searchbox" onkeyup="search(this)" style="position: fixed; right:50%; left:50%; top:5px; width:20%; max-width: 130px;padding: 5px;border-radius: 5px;border: 0; direction:rtl;" placeholder="חיפוש">
   <div style="position: fixed;right: 50%;bottom: -1px;height: fit-content;    color: #2f0300;" class="noselect">אופיר ט2
     יהלום</div>
   <div style="position: fixed;left: 5px;height: fit-content;" class="noselect" onclick="window.location.href='/'">הסיפור
@@ -61,10 +68,42 @@
     <img src="nerneshama.gif">
   </div>
   <!-------->
-  <div class="info">
+  <script>
+    function loadhistory() {
+      console.log("laoded")
+      if (typeof historia !== 'undefined') {
+        for (i = 0; i < historia.length; i++) {
+          document.getElementById("historyinput").innerHTML = `<div><img src="${historia[i].image}" style="max-height: 30vh;" class="noselect"><h1 class="hayalname"><span class="title pt">${historia[i].koteret}</span><span id="hayalname">${historia[i].name}</span></h1><p>${historia[i].genInfo}</p><p>${historia[i].perInfo}</p><p style="font-weight: lighter; font-size:1.5rem;">נזכור ולא נשכח</p></div>` +  document.getElementById("historyinput").innerHTML
+        }
+      } else {
+        fetch(`https://ab.dev.kolha.top/history?json=true`).then(res => res.json()).then(res => {
+          console.log(res)
+          if (res != null && res != "") {
+            for (i = 0; i < historia.length; i++) {
+              document.getElementById("historyinput").innerHTML = `<div><img src="${historia[i].image}" style="max-height: 30vh;" class="noselect"><h1 class="hayalname"><span class="title pt">${historia[i].koteret} </span><span id="hayalname">${historia[i].name}</span></h1><p>${historia[i].genInfo}</p><p>${historia[i].perInfo}</p><p style="font-weight: lighter; font-size:1.5rem;">נזכור ולא נשכח</p></div>` +  document.getElementById("historyinput").innerHTML
+            }
+          }
+          });
+      }
+    }
+    function search() {
+      var hayalname = document.getElementById("searchbox").value;
+      nodim = document.getElementById("historyinput").getElementsByTagName("div")
+      for (i = 0; i < nodim.length; i++) {
+        console.log(nodim[i].getElementsByTagName("h1")[0].innerHTML)
+        if (nodim[i].getElementsByTagName("h1")[0].innerHTML.includes(hayalname)) {
+          nodim[i].style.display = "flex"
+        } else {
+          nodim[i].style.display = "none"
+        }
+      }
+    }
+  </script>
+  <div class="info" id="historyinput" >
+    <p>מעליי אמורים להופיע החיילים הנמצאים בדרך החדשה לעדכון.</p>
     <div>
       <img src="https://www.idf.il/media/r0yjlnbw/%D7%90%D7%A1%D7%A3-%D7%A4%D7%A0%D7%97%D7%A1-%D7%98%D7%95%D7%91%D7%95%D7%9C.jpeg?center=0.30956732575160689,0.47243107769423559&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-      <h1 id="koteret" koteret="רסל">
+      <h1 class="koteret" koteret="רסל">
        אסף פנחס טובול
       </h1>
       <p>
@@ -80,7 +119,7 @@
     </div>
     <div>
     <img src="https://www.idf.il/media/5osduksa/%D7%90%D7%9C%D7%99%D7%A8%D7%96-%D7%92%D7%91%D7%90%D7%99.jpeg?center=0.3104617835667362,0.49429969427889309&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="רסם">
+    <h1 class="koteret" koteret="רסם">
       אלירז גבאי
     </h1>
     <p>
@@ -95,7 +134,7 @@
     </div>
     <div>
     <img src="https://www.idf.il/media/t4chxmvf/%D7%A0%D7%99%D7%AA%D7%90%D7%99-%D7%9E%D7%99%D7%99%D7%96%D7%9C%D7%A1.jpg?center=0.39295154185022024,0.62167300380228141&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="רסר">
+    <h1 class="koteret" koteret="רסר">
       ניתאי מייזלס
     </h1>
     <p>
@@ -113,7 +152,7 @@
 
     <div>
     <img src="https://www.idf.il/media/gmlbzp43/%D7%A1%D7%95%D7%A4%D7%99%D7%90%D7%9F-%D7%93%D7%92%D7%A9.jpg?center=0.45011155285101051,0.49553038468564153&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="סמר">
+    <h1 class="koteret" koteret="סמר">
       סופיאן דגש
     </h1>
     <p>
@@ -130,7 +169,7 @@
 
     <div>
     <img src="https://www.idf.il/media/dlhpwmxe/whatsapp-image-2023-12-29-at-09-17-13.jpeg?center=0.38875,0.71177266576454667&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="סרן">
+    <h1 class="koteret" koteret="סרן">
       הראל שרביט
     </h1>
     <p>
@@ -146,7 +185,7 @@
     </div>
     <div>
     <img src="https://www.idf.il/media/rumgg1yb/%D7%90%D7%A1%D7%A3-%D7%97%D7%9E%D7%9E%D7%99.jpg?center=0.2847333410362643,0.55020632737276476&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="אלם">
+    <h1 class="koteret" koteret="אלם">
       אסף חממי
     </h1>
     <p>
@@ -163,7 +202,7 @@
 
     <div>
     <img src="https://www.idf.il/media/by2nnnjk/%D7%A9%D7%99-%D7%A9%D7%9E%D7%A8%D7%99%D7%96.jpg?center=0.29980614039042425,0.47619047619047616&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="רסן">
+    <h1 class="koteret" koteret="רסן">
       שי שמריז
     </h1>
     <p>
@@ -179,7 +218,7 @@
     </div>
     <div>
     <img src="https://www.idf.il/media/gwalynyd/img_0458.jpeg?center=0.32501720841300191,0.492831541218638&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="סרן (מיל')">
+    <h1 class="koteret" koteret="סרן (מיל')">
       ליאור סיון
     </h1>
     <p>
@@ -195,7 +234,7 @@
     </div>
     <div>
     <img src="https://www.idf.il/media/nxcdkstg/%D7%A8%D7%A0%D7%99-%D7%AA%D7%9E%D7%99%D7%A8.jpg?center=0.49998464304588364,0.47815912636505459&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="סמל">
+    <h1 class="koteret" koteret="סמל">
       רני תמיר
     </h1>
     <p>
@@ -210,7 +249,7 @@
     </div>
     <div>
     <img src="https://www.idf.il/media/rsmpawtd/%D7%A2%D7%9E%D7%A8%D7%99-%D7%91%D7%9F-%D7%A9%D7%97%D7%A8.jpg?center=0.22696154814187919,0.53260342099203972&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="רסר">
+    <h1 class="koteret" koteret="רסר">
       עמרי בן שחר
     </h1>
     <p>
@@ -226,7 +265,7 @@
   
     <div>
     <img src="https://www.idf.il/media/ognn0lg1/%D7%90%D7%99%D7%AA%D7%9F-%D7%A0%D7%90%D7%94.jpg?center=0.24578764062178762,0.57909459997106483&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="רסר">
+    <h1 class="koteret" koteret="רסר">
       איתן נאה
     </h1>
     <p>
@@ -241,7 +280,7 @@
     </div>
     <div>
     <img src="https://www.idf.il/media/jhlc3ngg/%D7%A8%D7%95%D7%AA%D7%9D-%D7%9C%D7%95%D7%99.jpeg?center=0.3544921875,0.4701789264413519&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="סרן">
+    <h1 class="koteret" koteret="סרן">
       רותם יוסף לוי
     </h1>
     <p>
@@ -256,7 +295,7 @@
     </div>
     <div>
     <img src="https://www.idf.il/media/2npowdow/%D7%9C%D7%99%D7%93%D7%95%D7%A8-%D7%99%D7%95%D7%A1%D7%A3-%D7%A7%D7%A8%D7%95%D7%90%D7%A0%D7%99.jpeg?center=0.37433666463110293,0.40545919948248144&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="רסל (מיל)">לידור יוסף קרואני</h1>
+    <h1 class="koteret" koteret="רסל (מיל)">לידור יוסף קרואני</h1>
     <p>
       רס"ל (במיל') לידור יוסף קרואני, מאילת, לוחם בגדוד הנדסה 8163, פיקוד הדרום, נפל בקרב בצפון רצועת עזה, בן 23 בנופלו.
     </p>
@@ -271,7 +310,7 @@
     </div>
     <div>
     <img src="https://www.idf.il/media/0g4oapuy/%D7%A8%D7%95%D7%A2%D7%99-%D7%A4%D7%A8%D7%99.jpeg?center=0.2169257826791883,0.58797807537141389&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="סמל">רועי פרי</h1>
+    <h1 class="koteret" koteret="סמל">רועי פרי</h1>
     <p>
       סמל רועי פרי, משוהם, לוחם בגדוד 13 שבחטיבת גולני, בן 19 בנופלו
 
@@ -283,7 +322,7 @@
     </div>
     <div>
     <img src="https://www.idf.il/media/v2nh1eqb/%D7%9C%D7%99%D7%90%D7%9C-%D7%97%D7%99%D7%95.jpg?center=0.22782258064516128,0.39285714285714285&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="סרן">ליאל חיו</h1>
+    <h1 class="koteret" koteret="סרן">ליאל חיו</h1>
     <p>
       סרן ליאל חיו, משוהם, מפקד מחלקה בגדוד 51 שבחטיבת גולני, נפל בקרב בצפון רצועת עזה, בן 22 בנופלו.
     </p>
@@ -297,7 +336,7 @@
     </div>
     <div>
     <img src="https://www.idf.il/media/wbjb4xdh/%D7%AA%D7%95%D7%9E%D7%A8-%D7%92%D7%A8%D7%99%D7%A0%D7%91%D7%A8%D7%92.jpg?center=0.35286458333333331,0.49755301794453505&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="סאל">תומר גרינברג</h1>
+    <h1 class="koteret" koteret="סאל">תומר גרינברג</h1>
     <p>
       סא"ל תומר גרינברג, מאלמוג, מפקד גדוד 13 שבחטיבת גולני, נפל בקרב בצפון רצועת עזה, בן 35 בנופלו.
     </p>
@@ -310,7 +349,7 @@
     </div>
     <div>
     <img src="https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_270,w_500/879174" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="סמל">קיריל ברודסקי</h1>
+    <h1 class="koteret" koteret="סמל">קיריל ברודסקי</h1>
     <p>
       סמל קיריל ברודסקי, מרמת גן, חפ"ק מפקד חטיבה, חלל צה"ל חטוף בידי ארגון טרור, בן 19 בנופלו.
     </p>
@@ -323,7 +362,7 @@
     </div>
     <div>
     <img src="https://www.idf.il/media/0sqfafvm/%D7%99%D7%94%D7%95%D7%A0%D7%AA%D7%9F-%D7%9E%D7%9C%D7%9B%D7%94.jpeg?center=0.36621012539464565,0.42704096171662964&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="רסל">יהונתן מלכה</h1>
+    <h1 class="koteret" koteret="רסל">יהונתן מלכה</h1>
     <p>
       רס"ל (במיל') יהונתן מלכה, מבאר שבע, לוחם שיריון בגדוד 82, שבעוצבת 'סער מגולן' (7), נפל בקרב ברצועת עזה, בן 23 בנופלו.
     </p>
@@ -336,7 +375,7 @@
     </div>
     <div>
     <img src="https://www.idf.il/media/tmjbyixr/%D7%91%D7%A0%D7%99%D7%9E%D7%99%D7%9F-%D7%99%D7%94%D7%95%D7%A9%D7%A2-%D7%A0%D7%99%D7%93%D7%94%D7%9D.jpg?center=0.408203125,0.39112050739957716&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="סמל">בנימין יהושוע נידהם</h1>
+    <h1 class="koteret" koteret="סמל">בנימין יהושוע נידהם</h1>
     <p>
       סמל בנימין יהושע נידהם, מזכרון יעקב, לוחם בחטיבה 401 ('עוצבת עקבות הברזל'), חיל ההנדסה הקרבית, נפל בקרב בצפון רצועת עזה, בן 19 בנופלו.
     </p>
@@ -349,7 +388,7 @@
     </div>
     <div>
     <img src="https://www.idf.il/media/uc0oyrp1/%D7%A2%D7%95%D7%9E%D7%A8%D7%99-%D7%A4%D7%A8%D7%A5.jpeg?center=0.44684618468528664,0.48496240601503759&mode=crop&width=157&height=211" style="max-height: 30vh;" class="noselect">
-    <h1 id="koteret" koteret="סרן">עמרי פרץ</h1>
+    <h1 class="koteret" koteret="סרן">עמרי פרץ</h1>
     <p>
       סמ"ר עמרי פרץ, מאליכין, מפקד כיתה בגדוד 450 שבביסל"ח, בן 20 בנופלו.
     </p>
@@ -362,7 +401,7 @@
     </div>
     <div>
       <img src="https://i.ibb.co/gvmg2fB/IMG-20231203-WA0065.jpg" style="max-height: 30vh;" class="noselect">
-      <h1 id="koteret" koteret="סרן">אסף מסטר</h1>
+      <h1 class="koteret" koteret="סרן">אסף מסטר</h1>
       <p>
         סרן אסף מסטר, מקיבוץ בחן, מפקד מחלקה בגדוד 601 שבעוצבת 'עקבות הברזל' (401), נפל בקרב בצפון רצועת עזה, בן 22
         בנופלו.
@@ -379,7 +418,7 @@
       <img
         src="https://www.idf.il/media/vazbosbw/%D7%9C%D7%99%D7%90%D7%95%D7%A8-%D7%90%D7%A8%D7%96%D7%99.jpeg?center=0.41838091997401555,0.36313617606602477&mode=crop&width=157&height=211"
         style="max-height: 30vh;" class="noselect">
-      <h1 id="koteret" koteret="רסר">ליאור ארזי</h1>
+      <h1 class="koteret" koteret="רסר">ליאור ארזי</h1>
       <p>
         רס״ר ליאור ארזי, מגבעת חיים איחוד, לוחם ופרמדיק ביחידת שלדג, נפל בקרב בצפון רצועת עזה, בן 25 בנופלו.
       </p>
@@ -393,7 +432,7 @@
     </div>
     <div>
       <img src="https://i.ibb.co/bXMnSRD/IMG-20231129-WA0089.jpg" style="max-height: 30vh;" class="noselect">
-      <h1 id="koteret" koteret="סמר">תומר ברק</h1>
+      <h1 class="koteret" koteret="סמר">תומר ברק</h1>
       <p>
         סמ"ר תומר ברק, מפתח תקווה, לוחם בגדוד 13 שבחטיבת גולני, בן 20 בנופלו.
       </p>
@@ -409,7 +448,7 @@
       <img
         src="https://www.idf.il/media/l1unjksj/%D7%A0%D7%97%D7%9E%D7%9F-%D7%93%D7%A7%D7%9C.jpeg?center=0.22702631291460124,0.61075262254284279&mode=crop&width=157&height=211"
         style="max-height: 30vh;" class="noselect">
-      <h1 id="koteret" koteret="סמל">נחמן דקל</h1>
+      <h1 class="koteret" koteret="סמל">נחמן דקל</h1>
       <p>
         סמל נחמן דקל, מעמנואל, לוחם בגדוד 50, חטיבת הנח"ל, בן 20 בנופלו.
       <p>
@@ -425,7 +464,7 @@
       <img
         src="https://www.idf.il/media/j0rgtbuj/%D7%A2%D7%93%D7%99-%D7%93%D7%A0%D7%9F.jpeg?center=0.26077691078186033,0.29845674302842884&mode=crop&width=157&height=211"
         style="max-height: 30vh;" class="noselect">
-      <h1 id="koteret" koteret="סמר">עדי דן</h1>
+      <h1 class="koteret" koteret="סמר">עדי דן</h1>
       <p>
         סמ"ר עדי דנן, מיבנה, מפקד כיתה בגדוד צבר, חטיבת גבעתי, נפל בקרב בצפון רצועת עזה, בן 20 בנופלו.
 
@@ -441,7 +480,7 @@
 
     <div>
       <img src="https://i.ibb.co/7kTnj7p/IMG-20231126-WA0002-1.jpg" style="max-height: 30vh;" class="noselect">
-      <h1 id="koteret" koteret="סמר">גל מישאלוף</h1>
+      <h1 class="koteret" koteret="סמר">גל מישאלוף</h1>
       <p>
         סמ"ר גל מישאלוף, ממודיען, לוחם בגדוד צבר, חטיבת גבעתי, נפל בקרב ברצועת עזה, בן 21 בנופלו.
       </p>
@@ -455,7 +494,7 @@
     </div>
     <div>
       <img src="https://i.ibb.co/gwB6FCW/IMG-20231122-WA0107.jpg" style="max-height: 30vh;" class="noselect">
-      <h1 id="koteret" koteret="סרן">אור מוזס</h1>
+      <h1 class="koteret" koteret="סרן">אור מוזס</h1>
       <p>
         סרן אור מוזס, מאשדוד, ס' מ"פ בבא"ח העורף, בת 22 בנופלה.
       </p>
@@ -469,7 +508,7 @@
     </div>
     <div>
       <img src="https://i.ibb.co/m4cCrgN/IMG-20231120-WA0112.jpg" style="max-height: 30vh;" class="noselect">
-      <h1 id="koteret" koteret="סמר">איתי יהודה</h1>
+      <h1 class="koteret" koteret="סמר">איתי יהודה</h1>
       <p>
         סמ"ר איתי יהודה, מראשון לציון, לוחם בגדוד צבר, חטיבת גבעתי, נפל בקרב בצפון רצועת עזה, בן 20 בנופלו.
       </p>
@@ -482,7 +521,7 @@
     </div>
       <div>
         <img src="https://i.ibb.co/rZ67RCq/IMG-20231119-WA0084.jpg" style="max-height: 30vh;" class="noselect">
-        <h1 id="koteret" koteret="רסן">אביב חג'ג'</h1>
+        <h1 class="koteret" koteret="רסן">אביב חג'ג'</h1>
         <p>
           סמל אביב חג'ג', מגילת, בקרית איסוף יבשתי מגדוד 414 שבחיל הגנת הגבולות, בת 19 בנופלה </p>
         <p>
@@ -498,7 +537,7 @@
         <img
           src="https://www.idf.il/media/wo0g0spx/%D7%99%D7%94%D7%95%D7%93%D7%94-%D7%A0%D7%AA%D7%9F-%D7%9B%D7%94%D7%9F.jpeg?center=0.37007494249462042,0.44566712517193946&mode=crop&width=157&height=211"
           style="max-height: 30vh;" class="noselect">
-        <h1 id="koteret" koteret="רסן">יהודה נתן כהן</h1>
+        <h1 class="koteret" koteret="רסן">יהודה נתן כהן</h1>
         <p>
           רס״ן יהודה נתן כהן, משדמות מחולה, מפקד פלוגה בסיירת גבעתי, נפל בקרב בצפון רצועת עזה, בן 25 בנופלו.
         </p>
@@ -513,7 +552,7 @@
         <img
           src="https://www.idf.il/media/zrnexdf3/%D7%A0%D7%95%D7%A2%D7%94-%D7%A4%D7%A8%D7%99%D7%99%D7%A1.jpeg?center=0.46256981393916075,0.32571760252589965&mode=crop&width=157&height=211"
           style="max-height: 30vh;" class="noselect">
-        <h1 id="koteret" koteret="סמר">נועה פרייס</h1>
+        <h1 class="koteret" koteret="סמר">נועה פרייס</h1>
         <p>
           סמ"ר נועה פרייס, ממבועים, בקרית איסוף יבשתי בגדוד 414 שבחיל הגנת הגבולות, בת 20 בנופלה.
         </p>
@@ -526,7 +565,7 @@
       <div>
         <img src="https://i.ibb.co/g7thszK/Whats-App-Image-2023-11-13-at-15-48-47-b7ae449d.jpg"
           style="max-height: 30vh;" class="noselect">
-        <h1 id="koteret" koteret="סרן">בני וייס</h1>
+        <h1 class="koteret" koteret="סרן">בני וייס</h1>
         <p>
           סרן בני וייס, מחיפה, מפקד מחלקה בגדוד 195 שבעוצבת 'בני-אור' (460), נפל בקרב בצפון רצועת עזה, בן 22 בנופלו.
 
@@ -540,7 +579,7 @@
       </div>
       <div>
         <img src="https://i.ibb.co/mR1gmmD/IMG-20231112-WA0053.jpg" style="max-height: 30vh;" class="noselect">
-        <h1 id="koteret" koteret="סגן">אדר בן סימון</h1>
+        <h1 class="koteret" koteret="סגן">אדר בן סימון</h1>
         <p>
           סגן אדר בן סימון, מנווה זיו, מפקדת מחלקה בבא"ח העורף, בת 20 בנופלה.
         </p>
@@ -554,7 +593,7 @@
       <div>
         <img src="https://i.ibb.co/7Kp3Kqy/Whats-App-Image-2023-11-08-at-14-16-49-46f6ae12.jpg"
           style="max-height: 30vh;" class="noselect">
-        <h1 id="koteret" koteret="סמר">שלו דגן</h1>
+        <h1 class="koteret" koteret="סמר">שלו דגן</h1>
         <p>
           סמ"ר שלו דגן, מקרית ים, לוחם בגדוד 51 שבחטיבת גולני, בן 20 בנופלו.
 
@@ -568,7 +607,7 @@
       <div>
         <img src="https://i.ibb.co/dBCTHVT/Whats-App-Image-2023-11-07-at-15-47-08-250edac2.jpg"
           style="max-height: 30vh;" class="noselect">
-        <h1 id="koteret" koteret="סמר">רועי דאוי</h1>
+        <h1 class="koteret" koteret="סמר">רועי דאוי</h1>
         <p>
           סמ"ר רועי דאוי, מירושלים, מפקד כיתה בגדוד צבר, חטיבת גבעתי, נפל בקרב בצפון רצועת עזה, בן 20 בנופלו.
 
@@ -583,7 +622,7 @@
         <img
           src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1jo8Vb.img?w=768&h=432&m=6&x=432&y=133&s=153&d=153"
           style="max-height: 30vh;" class="noselect">
-        <h1 id="koteret" koteret="סמר">ים גלס</h1>
+        <h1 class="koteret" koteret="סמר">ים גלס</h1>
         <p>
           סמ"ר ים גלס, ממודיעין מכבים רעות, תצפיתנית בגדוד 414 שבחיל הגנת הגבולות, בת 20 בנופלה.
 
@@ -598,7 +637,7 @@
         <img
           src="https://www.idf.il/media/s42e421d/%D7%99%D7%94%D7%95%D7%A0%D7%AA%D7%9F-%D7%9E%D7%99%D7%9E%D7%95i-%D7%A1%D7%9E%D7%9C.jpg?anchor=center&mode=crop&width=157&height=211"
           style="max-height: 30vh;" class="noselect">
-        <h1 id="koteret" koteret="סמל">יהונתן מימון</h1>
+        <h1 class="koteret" koteret="סמל">יהונתן מימון</h1>
         <p>
           סמל יהונתן מימון, מאופקים, לוחם בסיירת נח"ל, נפל במהלך ניהול קרב קשה עם מחבלים בצפון רצועת עזה, בן 20 בנופלו.
         </p>
@@ -612,7 +651,7 @@
         <img
           src="https://www.idf.il/media/kvkb3kiq/%D7%A2%D7%93%D7%9F-%D7%A0%D7%99%D7%9E%D7%A8%D7%99.jpeg?center=0.30119407968002565,0.46666659996157789&mode=crop&width=157&height=211"
           style="max-height: 30vh;" class="noselect">
-        <h1 id="koteret" koteret="סרן">עדן נימרי</h1>
+        <h1 class="koteret" koteret="סרן">עדן נימרי</h1>
         <p>
           עדן, בת 22 ממודיעין, מפקדת צוות "רוכב שמיים" בחיל התותחנים, עדן נפלה במהלך הגנה על מיגונית במוצב נחל עוז.
         <p>
@@ -627,7 +666,7 @@
         <img
           src="https://static.wixstatic.com/media/7e3458_d18759eff8f44c08a06ec5946425bc2f~mv2.jpg/v1/fill/w_439,h_439,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/386096450_821036930026704_7503183804345338851_n.jpg"
           style="max-height: 30vh;" class="noselect">
-        <h1 id="koteret" koteret="סרן">רועי נהרי</h1>
+        <h1 class="koteret" koteret="סרן">רועי נהרי</h1>
         <p>
           רועי, בן 23 מישוב אורה שירת כמפקד מחלקה בגדוד 202 שבחטיבת הצנחנים, רועי נלחם ונפל במהלך הגנת וחילוץ אזרחים
           בכפר עזה.
@@ -643,7 +682,7 @@
         <img
           src="https://rishon.mynet.co.il/picserver/mynet/crop_images/2023/10/29/HyhEl00of6/HyhEl00of6_0_0_591_591_0_large.jpg"
           style="max-height: 30vh;" class="noselect">
-        <h1 id="koteret" koteret="סמר">שיראל חיים פור</h1>
+        <h1 class="koteret" koteret="סמר">שיראל חיים פור</h1>
         <p>שיראל, בת 20 מראשון לציון שירתה כסמב"צית בחטיבה הצפונית, כאשר התחילה המתקפה, שיראל, שלא היתה במשמרת וכשהיא
           עדיין לבושה בבגדים אזרחים, הלכה לחמ"ל לתגבר את התצפתניות במקום. היא סייעה להעביר מידע והתרעות קריטיים לגורמים
           הרלוונטיים, דיווחים שהצילו מאות מתושבי עוטף עזה.
@@ -657,7 +696,7 @@
       <div>
         <img src="https://i.ibb.co/QXZ86j6/trgew.jpg" style="max-height: 30vh;" class="noselect"
           crossorigin="anonymous">
-        <h1 id="koteret" koteret="סרן">אורי מרדכי שני</h1>
+        <h1 class="koteret" koteret="סרן">אורי מרדכי שני</h1>
         <p>אורי, בן 22 מקריית ארבע שירת מפקד מחלקה בגדוד 51 שבחטיבת גולני, לפני שנהרג הספיק יחד עם לוחמיו במעשה גבורה
           הירואי, לחסל 35 מחבלי חמאס, ובכך מנע את כניסתם למוצב והציל תצפיתניות שהתחבאו בחמ"ל.
         </p>
@@ -671,7 +710,7 @@
       <div>
         <img src="https://i.ibb.co/Z69wKhh/189590691-789782118393363-508429429985027641-n.jpg" style="max-height: 30vh;"
           class="noselect" crossorigin="anonymous">
-        <h1 id="koteret" koteret="סמר">ירין מארי פלד</h1>
+        <h1 class="koteret" koteret="סמר">ירין מארי פלד</h1>
         <p>ירין, בת 20 מבארי שירתה כחובשת בחטיבה הצפונית, ומתנדבת במד"א, ירין הייתה בבסיס כאשר התחילה מתקפת החמאס ונפלה
           בקרב על מוצב נחל עוז. לפני מותה ביקשה שבמידה ותיפול בקרב - הייתה רוצה שמתנדבי מד"א יגיעו ללוויתה במדי הארגון.
         </p>
@@ -686,7 +725,7 @@
         <img
           src="https://www.idf.il/media/urjpz3es/%D7%92%D7%99%D7%90-%D7%A9%D7%9E%D7%97%D7%99.jpeg?center=0.25555555582046507,0.30263834742920243&mode=crop&width=512&height=512"
           style="max-height: 30vh;" class="noselect">
-        <h1 id="koteret" koteret="סמר">גיא שמחי</h1>
+        <h1 class="koteret" koteret="סמר">גיא שמחי</h1>
         <p>גיא, בן 20 מגדרה שירת כלוחם בסיירת צנחנים, גיא הגיע למסיבה עם חבריו וכאשר שמע את הירי לקח את חבריו ועוד כ30
           איש לממ"דים בקיבוץ, כאשר גיא הגן על דלת הממד, נזרק עליו ועל חברו רימון, וגיא נפל כגיבור.
         </p>
@@ -700,7 +739,7 @@
         <img
           src="https://static.wixstatic.com/media/0d1d6d_3dc052276eb4483f85e23d73da03401d~mv2.jpg/v1/fill/w_439,h_439,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/%D7%AA%D7%9E%D7%95%D7%A0%D7%94%20%D7%A9%D7%9C%20WhatsApp%E2%80%8F%202023-10-13%20%D7%91%D7%A9%D7%A2%D7%94%2016_43_13_e5efc212.jpg"
           style="max-height: 30vh;" class="noselect">
-        <h1 id="koteret" koteret="סמל">שחף ניסני</h1>
+        <h1 class="koteret" koteret="סמל">שחף ניסני</h1>
         <p>שחף, בת 20 מאשקלון שירתה כתצפיתנית בבסיס נחל עוז, בגדוד 414, והייתה אמורה להשתחרר לפני שבועיים. היא בדיוק
           סגרה את השבת האחרונה בבסיס.
           היא נרצחה במתפקת החמאס בעת שמילאה את תפקידה
@@ -715,7 +754,7 @@
         <img
           src="https://www.idf.il/media/i4ydwgjy/%D7%99%D7%94%D7%95%D7%A0%D7%AA%D7%9F-%D7%A9%D7%98%D7%99%D7%99%D7%A0%D7%91%D7%A8%D7%92.jpeg?center=0.39440582671483548,0.52365584834929435&mode=crop&width=250&height=250"
           style="max-height: 30vh;" class="noselect">
-        <h1 id="koteret" koteret="אלם">יהונתן שטיינברג</h1>
+        <h1 class="koteret" koteret="אלם">יהונתן שטיינברג</h1>
         <p>שטינברג התגורר בשומריה, היה נשוי ואב לשישה. בעל תואר ראשון בחינוך ממכללת ירושלים ותואר שני במדעי המדינה. גיסו
           הוא אל"ם אפרים אבני.
         </p>
