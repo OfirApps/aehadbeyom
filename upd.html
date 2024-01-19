@@ -80,7 +80,7 @@
       var perInfo = document.getElementById("perinform").value;
       var koteret = document.getElementById("formkoteret").value;
 
-
+      document.getElementById("upd").innerHTML = "מעדכן...";
       fetch(`https://ab.dev.kolha.top/update?name=${hayalname}&image=${encodeURIComponent(image)}&genInfo=${genInfo}&perInfo=${perInfo}&koteret=${koteret}`, {
         method: "GET",
         headers: {
