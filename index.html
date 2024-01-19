@@ -65,7 +65,7 @@
         if (res != null && res != "") {
           document.getElementById("hayalname").innerHTML = res.name;
           document.getElementById("title").innerHTML = res.koteret;
-          document.getElementById("hayalimg").src = res.image;
+          document.getElementById("hayalimg").src = decodeURIComponent(res.image);
           document.getElementById("hayalgeneral").innerHTML = res.genInfo;
 document.getElementById("hayalpersonal").innerHTML = res.perInfo;
         }

@@ -81,7 +81,7 @@
       var koteret = document.getElementById("formkoteret").value;
 
 
-      fetch(`https://ab.dev.kolha.top/update?name=${hayalname}&image=${image}&genInfo=${genInfo}&perInfo=${perInfo}&koteret=${koteret}`, {
+      fetch(`https://ab.dev.kolha.top/update?name=${hayalname}&image=${encodeURIComponent(image)}&genInfo=${genInfo}&perInfo=${perInfo}&koteret=${koteret}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json"
